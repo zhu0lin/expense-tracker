@@ -28,7 +28,7 @@ either too complex or lack the features needed for modern spending habits.
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/zhu0lin/expense-tracker
+   git clone https://github.com/[yourusername]/expense-tracker
    cd expense-tracker
    ```
 2. Install dependencies:
