@@ -1,0 +1,94 @@
+/* src/components/ExpenseSummary/ExpenseSummary.css */
+.expense-summary {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #E5E7EB;
+}
+
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.summary-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1F2937;
+  margin: 0;
+}
+
+.summary-period {
+  background: #F3F4F6;
+  color: #6B7280;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.summary-stats {
+  display: flex;
+  gap: 32px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6B7280;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1F2937;
+  text-align: center;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .expense-summary {
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .summary-header {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  
+  .summary-header h2 {
+    font-size: 20px;
+  }
+  
+  .summary-stats {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .stat-value {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-value {
+    font-size: 20px;
+  }
+}

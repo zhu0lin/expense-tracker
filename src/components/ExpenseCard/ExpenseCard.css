@@ -1,0 +1,51 @@
+/* src/components/ExpenseCard/ExpenseCard.css */
+.expense-card {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-left: 4px solid #4F46E5;
+}
+
+.expense-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.expense-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.expense-category {
+  background: #4F46E5;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.expense-date {
+  color: #6B7280;
+  font-size: 14px;
+}
+
+.expense-description {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1F2937;
+}
+
+.expense-amount {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #059669;
+}
