@@ -14,6 +14,12 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.expense-card.highlighted {
+  background: #FEF3C7;
+  border-left-color: #F59E0B;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+}
+
 .expense-header {
   display: flex;
   justify-content: space-between;
