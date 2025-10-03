@@ -1,6 +1,24 @@
 // src/components/ExpenseCard/ExpenseCard.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import './ExpenseCard.css';
+
+/*
+TYPESCRIPT FEATURE INVENTORY:
+Interfaces Found:
+1. ExpenseCardProps - defines component contract
+
+Type Annotations Found:
+1. amount: number - ensures currency values are numeric
+
+Autocomplete Helped:
+I did not use autocomplete.
+
+Error I Fixed:
+Created type union types for better type safety
+*/
+
+
+export type ExpenseCategory = 'Food' | 'Transportation' | 'Entertainment' | 'Other';
 
 // TypeScript interface defines the structure of props this component expects
 // This acts like a contract - any parent component must provide these exact properties
@@ -8,8 +26,13 @@ export interface ExpenseCardProps {
     id: number;              // Unique identifier for each expense
     description: string;     // What the expense was for (e.g., "Lunch at Joe's Pizza")
     amount: number;         // Cost in dollars (will be formatted to show currency)
-    category: string;       // Type of expense (e.g., "Food", "Transportation")
+    category: ExpenseCategory;       // Type of expense (e.g., "Food", "Transportation")
     date: string;          // When the expense occurred (formatted as string)
+
+    // Optional props
+    onDelete?: (id: number) => void;
+    highlighted?: boolean;
+    showCategory?: boolean;
 }
 
 /**
@@ -21,13 +44,22 @@ export interface ExpenseCardProps {
  * @param {string} props.category - Expense category for organization and filtering
  * @param {string} props.date - Date when expense occurred (ISO string format)
  */
+
 const ExpenseCard: React.FC<ExpenseCardProps> = ({
     id,
     description,
     amount,
     category,
-    date
+    date,
+    highlighted = false,
+    showCategory = false,
+    onDelete
 }) => {
+
+    // Local state for UI interactions (can be overridden by props)
+    const [isHighlighted, setIsHighlighted] = useState(highlighted);
+    const [isCategoryVisible, setIsCategoryVisible] = useState(showCategory);
+
     // Format currency for professional display
     const formattedAmount = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -41,13 +73,67 @@ const ExpenseCard: React.FC<ExpenseCardProps> = ({
         year: 'numeric'
     });
 
+    const handleToggleCategory = () => {
+        setIsCategoryVisible(prev => !prev);
+    }
+
+    const handleToggleHighlight = () => {
+        setIsHighlighted(prev => !prev);
+    }
+
+    const handleDelete = () => {
+        if (onDelete) {
+            onDelete(id);
+        }
+    }
+
+
     return (
-        <article className="expense-card">
+
+        
+        <article className={`expense-card ${isHighlighted ? 'highlighted' : ''}`}>
             <div className="expense-header">
-                <span className="expense-category">{category}</span>
+                {/* Only show category when isCategoryVisible is true */}
+                {isCategoryVisible && <span className="expense-category">{category}</span>}
+
                 <time className="expense-date" dateTime={date}>
                     {formattedDate}
                 </time>
+
+                {/* controls: toggle highlight, toggle category visibility, delete (only if provided) */}
+                <div className="expense-controls">
+                    <button
+                        type="button"
+                        className="btn-toggle-highlight"
+                        onClick={handleToggleHighlight}
+                        aria-pressed={isHighlighted}
+                        title="Toggle highlight"
+                    >
+                        {isHighlighted ? 'Unhighlight' : 'Highlight'}
+                    </button>
+
+                    <button
+                        type="button"
+                        className="btn-toggle-category"
+                        onClick={handleToggleCategory}
+                        aria-pressed={isCategoryVisible}
+                        title={isCategoryVisible ? 'Hide category' : 'Show category'}
+                    >
+                        {isCategoryVisible ? 'Hide Category' : 'Show Category'}
+                    </button>
+
+                    {/* Only show delete button if onDelete prop exists */}
+                    {onDelete && (
+                        <button
+                            type="button"
+                            className="btn-delete"
+                            onClick={handleDelete}
+                            title="Delete expense"
+                        >
+                            Delete
+                        </button>
+                    )}
+                </div>
             </div>
 
             <div className="expense-body">
