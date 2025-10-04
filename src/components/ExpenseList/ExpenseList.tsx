@@ -3,11 +3,9 @@ import React, { useState } from 'react';
 import ExpenseCard from '../ExpenseCard/ExpenseCard';
 import type { ExpenseCategory } from '../ExpenseCard/ExpenseCard';
 import type { ExpenseCardProps } from '../ExpenseCard/ExpenseCard';
-import './ExpenseList.css';
 
 // Type for expense data (reusing interface from ExpenseCard)
 type Expense = ExpenseCardProps; 
-type SortOption = 'date' | 'amount' | 'category';
 type FilterOption = 'All' | ExpenseCategory;
 
 /**
@@ -38,7 +36,6 @@ interface ExpenseListProps {
 const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
   
   // ONLY manage UI state (filtering) - NOT expense data
-  const [sortCategory, setSortCategory] = useState<SortOption>('date')
   const [filterCategory, setFilterCategory] = useState<FilterOption>('All');
 
   // Filter expenses from props (not local state)
@@ -61,17 +58,17 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
   };
 
   return (
-    <div className="expense-list">
-      <div className="expense-controls">
-        <h2>Your Expenses</h2>
+    <div className="bg-white rounded-lg p-6 mb-8 shadow-sm border border-gray-200">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">Your Expenses</h2>
         
-        <div className="filter-controls">
-          <label htmlFor="category-filter">Filter by category:</label>
+        <div className="mb-6">
+          <label htmlFor="category-filter" className="block text-sm font-medium text-gray-700 mb-2">Filter by category:</label>
           <select 
             id="category-filter"
             value={filterCategory}
             onChange={handleCategoryChange}
-            className="category-select"
+            className="px-3 py-2 border border-gray-300 rounded-md text-sm bg-white text-gray-700 cursor-pointer transition-colors hover:border-indigo-600 focus:outline-none focus:border-indigo-600 focus:ring-3 focus:ring-indigo-100"
           >
             <option value="All">All Categories</option>
             <option value="Food">Food</option>
@@ -82,17 +79,19 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses }) => {
         </div>
       </div>
 
-      <div className="expense-summary">
-        <p>
+      <div className="flex justify-between items-center mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <p className="text-lg font-bold text-indigo-600 m-0">
           Total: ${filteredTotal.toFixed(2)} ({filteredExpenses.length} expenses)
         </p>
       </div>
 
-      <div className="expense-items">
+      <div>
         {filteredExpenses.length === 0 ? (
-          <p className="no-expenses">
-            No expenses found. Add some expenses to get started!
-          </p>
+          <div className="text-center py-10 px-5 text-gray-500">
+            <p className="text-base m-0">
+              No expenses found. Add some expenses to get started!
+            </p>
+          </div>
         ) : (
           filteredExpenses.map(expense => (
             <ExpenseCard
