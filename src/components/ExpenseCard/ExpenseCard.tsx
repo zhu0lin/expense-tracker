@@ -1,6 +1,5 @@
 // src/components/ExpenseCard/ExpenseCard.tsx
 import React, { useState } from 'react';
-import './ExpenseCard.css';
 
 /*
 TYPESCRIPT FEATURE INVENTORY:
@@ -90,21 +89,20 @@ const ExpenseCard: React.FC<ExpenseCardProps> = ({
 
     return (
 
-        
-        <article className={`expense-card ${isHighlighted ? 'highlighted' : ''}`}>
-            <div className="expense-header">
+        <article className={`bg-white rounded-lg p-4 mb-3 shadow-sm transition-all duration-200 border-l-4 border-indigo-600 hover:-translate-y-0.5 hover:shadow-md ${isHighlighted ? 'bg-amber-50 border-l-amber-500' : ''}`}>
+            <div className="flex justify-between items-center mb-2">
                 {/* Only show category when isCategoryVisible is true */}
-                {isCategoryVisible && <span className="expense-category">{category}</span>}
+                {isCategoryVisible && <span className="bg-indigo-600 text-white px-2 py-1 rounded text-xs font-semibold uppercase">{category}</span>}
 
-                <time className="expense-date" dateTime={date}>
+                <time className="text-gray-500 text-sm" dateTime={date}>
                     {formattedDate}
                 </time>
 
                 {/* controls: toggle highlight, toggle category visibility, delete (only if provided) */}
-                <div className="expense-controls">
+                <div className="flex gap-2">
                     <button
                         type="button"
-                        className="btn-toggle-highlight"
+                        className="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded hover:bg-blue-200 transition-colors"
                         onClick={handleToggleHighlight}
                         aria-pressed={isHighlighted}
                         title="Toggle highlight"
@@ -114,7 +112,7 @@ const ExpenseCard: React.FC<ExpenseCardProps> = ({
 
                     <button
                         type="button"
-                        className="btn-toggle-category"
+                        className="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded hover:bg-green-200 transition-colors"
                         onClick={handleToggleCategory}
                         aria-pressed={isCategoryVisible}
                         title={isCategoryVisible ? 'Hide category' : 'Show category'}
@@ -126,7 +124,7 @@ const ExpenseCard: React.FC<ExpenseCardProps> = ({
                     {onDelete && (
                         <button
                             type="button"
-                            className="btn-delete"
+                            className="px-3 py-1 text-xs font-medium bg-red-100 text-red-800 rounded hover:bg-red-200 transition-colors"
                             onClick={handleDelete}
                             title="Delete expense"
                         >
@@ -136,9 +134,9 @@ const ExpenseCard: React.FC<ExpenseCardProps> = ({
                 </div>
             </div>
 
-            <div className="expense-body">
-                <h3 className="expense-description">{description}</h3>
-                <p className="expense-amount">{formattedAmount}</p>
+            <div>
+                <h3 className="mb-2 text-base font-medium text-gray-800">{description}</h3>
+                <p className="m-0 text-lg font-bold text-emerald-600">{formattedAmount}</p>
             </div>
         </article>
     );
